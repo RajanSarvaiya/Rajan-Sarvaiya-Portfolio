@@ -285,4 +285,76 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ----------------------------------------
+     11. Fleeto Modal Logic
+  ---------------------------------------- */
+  const fleetoProject = document.getElementById('fleeto-project');
+  const fleetoModal = document.getElementById('fleetoModal');
+  const closeFleetoModal = document.getElementById('closeFleetoModal');
+  const storeBtns = document.querySelectorAll('.store-btn');
+
+  // Define iOS and Android URLs for each Fleeto App
+  const fleetoLinks = {
+    shipper: {
+      ios: "https://apps.apple.com/in/app/fleeto-shipper/id6748735548",
+      android: "https://play.google.com/store/apps/details?id=com.shipper.fleeto&hl=en_IN"
+    },
+    transporter: {
+      ios: "https://apps.apple.com/in/app/fleeto-transporter/id6748719886",
+      android: "https://play.google.com/store/apps/details?id=com.transporter.fleeto&hl=en_IN"
+    },
+    driver: {
+      ios: "https://apps.apple.com/in/app/fleeto-driver/id6748720336",
+      android: "https://play.google.com/store/apps/details?id=com.driver.fleeto&hl=en_IN"
+    }
+  };
+
+  if (fleetoProject && fleetoModal && closeFleetoModal) {
+    // Open modal on card click
+    fleetoProject.addEventListener('click', () => {
+      fleetoModal.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+
+    // Close modal on close button click
+    closeFleetoModal.addEventListener('click', () => {
+      fleetoModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+
+    // Close modal on clicking outside the modal content
+    fleetoModal.addEventListener('click', (e) => {
+      if (e.target === fleetoModal) {
+        fleetoModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Handle Route clicking based on Device OS
+    storeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default anchor behaviour
+        
+        const appType = btn.getAttribute('data-app');
+        if (!appType || !fleetoLinks[appType]) return;
+
+        const links = fleetoLinks[appType];
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        
+        // iOS / iPadOS detection
+        if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+          window.open(links.ios, "_blank");
+        } 
+        // Mac laptop/desktop detection
+        else if (/Macintosh|Mac OS X/.test(userAgent)) {
+          window.open(links.ios, "_blank");
+        }
+        // Android / Windows / Other
+        else {
+          window.open(links.android, "_blank");
+        }
+      });
+    });
+  }
+
 });

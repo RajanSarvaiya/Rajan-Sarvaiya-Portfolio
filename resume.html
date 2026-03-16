@@ -425,23 +425,28 @@
 
       const element = document.getElementById('resumeContent');
 
-      // We want standard A4 width, but let the height grow if needed.
-      // Easiest reliable way for 1 page in html2pdf is to scale it to fit.
-      // One reliable way to force a single page without cutoff is to
-      // scale the A4 height up to fit the whole rendered canvas, or let
-      // the jsPDF determine a custom format based on the element dimensions.
-      // 1mm = 3.7795275591px (Approx 3.8)
-      // Since A4 width is 210mm, let's keep width 210mm, and calculate height.
+      // Temporarily remove box shadow and border radius to prevent html2canvas 
+      // from capturing extra transparent/black areas outside the physical bounds
+      const originalShadow = element.style.boxShadow;
+      const originalRadius = element.style.borderRadius;
+      element.style.boxShadow = 'none';
+      element.style.borderRadius = '0';
 
-      const pxHeight = element.offsetHeight;
-      const pxWidth = element.offsetWidth;
-      const mmHeight = (pxHeight * 210) / pxWidth; // Maintain element aspect ratio relative to A4 width
+      const pxHeight = element.scrollHeight;
+      const pxWidth = element.scrollWidth;
+      // Add a small buffer (+1) to the calculated height to ensure the canvas 
+      // fits perfectly onto one jsPDF page without spilling over and creating a blank page
+      const mmHeight = (pxHeight * 210) / pxWidth + 1;
 
       const opt = {
         margin: 0,
         filename: 'Rajan_Sarvaiya_Resume.pdf',
         image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff' // Ensures any transparent boundary turns white, not black
+        },
         jsPDF: { unit: 'mm', format: [210, mmHeight], orientation: 'portrait' }
       };
 
@@ -449,6 +454,9 @@
       html2pdf().set(opt).from(element).save().then(() => {
         // Show button again
         btn.style.display = 'flex';
+        // Restore styles
+        element.style.boxShadow = originalShadow;
+        element.style.borderRadius = originalRadius;
       });
     }
   </script>

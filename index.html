@@ -273,9 +273,9 @@
           </div>
         </div>
 
-        <!-- Project 1 -->
-        <div class="project-card reveal">
-          <div class="project-icons-row">
+        <!-- Project 2: Fleeto -->
+        <div class="project-card reveal" id="fleeto-project" style="cursor: pointer;">
+          <div class="project-icons-row" style="pointer-events: none;">
             <div class="project-icon sm">
               <img src="assets/fleeto.png" alt="Fleeto Logo">
             </div>
@@ -286,11 +286,11 @@
               <img src="assets/fleeto_driver.png" alt="Fleeto Driver">
             </div>
           </div>
-          <div class="project-cat">LOGISTICS SYSTEM</div>
-          <h3 class="project-title">Fleeto</h3>
-          <p class="project-desc">Logistics Management System with 3 apps (Shipper, Transporter, Driver) featuring
+          <div class="project-cat" style="pointer-events: none;">LOGISTICS SYSTEM</div>
+          <h3 class="project-title" style="pointer-events: none;">Fleeto</h3>
+          <p class="project-desc" style="pointer-events: none;">Logistics Management System with 3 apps (Shipper, Transporter, Driver) featuring
             real-time tracking, payments, and Firebase alerts.</p>
-          <div class="project-tags">
+          <div class="project-tags" style="pointer-events: none;">
             <span class="tag">Google Maps</span>
             <span class="tag">Firebase</span>
             <span class="tag">Method Channels</span>
@@ -461,6 +461,65 @@
       <polyline points="18 15 12 9 6 15" />
     </svg>
   </button>
+
+  <!-- ========== MODALS ========== -->
+  <div class="modal-overlay" id="fleetoModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeFleetoModal" aria-label="Close Modal">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-icon">
+          <img src="assets/fleeto.png" alt="Fleeto Logo">
+        </div>
+        <div>
+          <h3 class="modal-title">Fleeto App</h3>
+          <p class="modal-cat">Logistics Management System</p>
+        </div>
+      </div>
+      
+      <p class="modal-desc" style="margin-bottom: 16px;">
+        Choose the application you want to open:
+      </p>
+      
+      <div class="modal-app-links">
+        <a href="#" class="app-btn store-btn" data-app="shipper" target="_blank" rel="noopener">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="project-icon sm" style="width: 32px; height: 32px; margin: 0; padding: 2px;">
+              <img src="assets/fleeto.png" alt="Fleeto Shipper">
+            </div>
+            <span>Fleeto - Shipper</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+        
+        <a href="#" class="app-btn store-btn" data-app="transporter" target="_blank" rel="noopener">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="project-icon sm" style="width: 32px; height: 32px; margin: 0; padding: 2px;">
+              <img src="assets/fleeto_transporter.png" alt="Fleeto Transporter">
+            </div>
+            <span>Fleeto - Transporter</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+        
+        <a href="#" class="app-btn store-btn" data-app="driver" target="_blank" rel="noopener">
+           <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="project-icon sm" style="width: 32px; height: 32px; margin: 0; padding: 2px;">
+              <img src="assets/fleeto_driver.png" alt="Fleeto Driver">
+            </div>
+            <span>Fleeto - Driver</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
