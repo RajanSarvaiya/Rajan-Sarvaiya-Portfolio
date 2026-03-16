@@ -286,6 +286,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ----------------------------------------
+     10.5 BizBuddy & TenBox click logic
+  ---------------------------------------- */
+  const bizBuddyProject = document.getElementById('bizbuddy-project');
+  const tenBoxProject = document.getElementById('tenbox-project');
+
+  if (bizBuddyProject) {
+    bizBuddyProject.addEventListener('click', () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      
+      if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        window.open("https://apps.apple.com/in/app/bizbuddy/id6749560662", "_blank");
+      } else if (/Macintosh|Mac OS X/.test(userAgent)) {
+        window.open("https://apps.apple.com/in/app/bizbuddy/id6749560662", "_blank");
+      } else {
+        window.open("https://play.google.com/store/apps/details?id=com.netizens.bizbuddy&hl=en_IN", "_blank");
+      }
+    });
+  }
+
+  if (tenBoxProject) {
+    tenBoxProject.addEventListener('click', () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      
+      if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        window.open("https://apps.apple.com/in/app/tenbox-secure-cloud-storage/id6758333891", "_blank");
+      } else if (/Macintosh|Mac OS X/.test(userAgent)) {
+        window.open("https://apps.apple.com/in/app/tenbox-secure-cloud-storage/id6758333891", "_blank");
+      } else {
+        window.open("https://play.google.com/store/apps/details?id=com.tenbox.app&hl=en_IN", "_blank");
+      }
+    });
+  }
+
+  /* ----------------------------------------
      11. Fleeto Modal Logic
   ---------------------------------------- */
   const fleetoProject = document.getElementById('fleeto-project');
