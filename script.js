@@ -262,4 +262,27 @@ document.addEventListener('DOMContentLoaded', () => {
   //   if (i >= tagText.length) clearInterval(typeInterval);
   // }, 80);
 
+  /* ----------------------------------------
+     10. TagAset click logic
+  ---------------------------------------- */
+  const tagAsetProject = document.getElementById('tagaset-project');
+  if (tagAsetProject) {
+    tagAsetProject.addEventListener('click', () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      
+      // iOS / iPadOS detection
+      if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        window.open("https://apps.apple.com/in/app/tagaset/id6749433106", "_blank");
+      } 
+      // Mac laptop/desktop detection
+      else if (/Macintosh|Mac OS X/.test(userAgent)) {
+        window.open("https://apps.apple.com/in/app/tagaset/id6749433106", "_blank");
+      }
+      // Android / Windows / Other
+      else {
+        window.open("https://play.google.com/store/apps/details?id=com.netizenslab.tagaset&hl=en_IN", "_blank");
+      }
+    });
+  }
+
 });

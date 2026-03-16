@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rajan Sarvaiya | Resume</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #121212;
+      --secondary: #2C2C2C;
+      --accent: #c9a8ce;
+      --text-main: #333333;
+      --text-muted: #666666;
+      --bg: #f9f9f9;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--secondary);
+      font-family: var(--font-body);
+      color: var(--text-main);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Resume Document Style */
+    .resume-wrapper {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 800px;
+      /* A4-ish proportions */
+      padding: 60px 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    /* Fixed Download Button */
+    .download-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(201, 168, 206, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(201, 168, 206, 0.6);
+    }
+
+    .download-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .role {
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-info span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* Timeline / Experience */
+    .exp-item {
+      margin-bottom: 20px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 5px;
+    }
+
+    .exp-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .exp-company {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .exp-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    ul.bullets {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+
+    ul.bullets li {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    /* Skills Grid */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .skill-category {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+    }
+
+    .skill-list {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Projects Grid */
+    .projects-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .project-name {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .project-type {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+
+      .resume-wrapper {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .download-btn {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Download Button -->
+  <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Download PDF
+  </button>
+
+  <!-- Resume Content -->
+  <div class="resume-wrapper" id="resumeContent">
+
+    <header>
+      <h1>Rajan Sarvaiya</h1>
+      <div class="role">Flutter Developer</div>
+      <div class="contact-info">
+        <span>📧 rajansarvaiya4@gmail.com</span>
+        <span>📱 +91 9106881005</span>
+        <span>📍 Surat, India</span>
+        <span>🔗 linkedin.com/in/rajan-sarvaiya</span>
+        <span>💻 github.com/RajanSarvaiya</span>
+      </div>
+    </header>
+
+    <section>
+      <h2 class="section-title">Professional Summary</h2>
+      <p>Dynamic Flutter Developer with 2+ years of experience specializing in cross-platform mobile application
+        development. Proven track record of delivering innovative solutions that drive user engagement and optimize
+        transaction processes. Expert in Flutter and Dart programming with strong complementary skills in MySQL data
+        management and Git version control system. Successfully collaborated with cross-functional teams to translate
+        complex business requirements into seamless, user-centric mobile experiences with a focus on performance
+        optimization and scalability.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Experience</h2>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Flutter Developer</span> | <span class="exp-company">Accelate.ai</span>
+          </div>
+          <span class="exp-date">Dec 2025 — Present</span>
+        </div>
+        <ul class="bullets">
+          <li>Developed a comprehensive Claude storage management app supporting upload/download of images, videos,
+            PDFs, audio, and ZIP files.</li>
+          <li>Implemented storage progress tracking, file opening, and hierarchical folder structures using Provider for
+            state management.</li>
+          <li>Built a fully structured e-commerce web app in Flutter with clean architecture and optimized
+            Provider-based state management.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Flutter Developer</span> | <span class="exp-company">Netizens Technologies</span>
+          </div>
+          <span class="exp-date">Aug 2024 — Dec 2025</span>
+        </div>
+        <ul class="bullets">
+          <li>Leading development and deployment of around 8 Flutter-based Android and iOS applications using clean
+            architecture.</li>
+          <li>Integrated real-time Firebase notifications and Native functionalities using Method channels (background
+            location, payments).</li>
+          <li>Optimized app performance and handled in-app purchases and Razorpay integration.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Flutter Developer Intern</span> | <span class="exp-company">ICONFISYS Private
+              Limited</span>
+          </div>
+          <span class="exp-date">Jun 2023 — Jul 2024</span>
+        </div>
+        <ul class="bullets">
+          <li>Developed a News app with real-time updates and personalized content features during a comprehensive
+            internship.</li>
+          <li>Created an E-Commerce app with secure payment integration and streamlined user experience.</li>
+          <li>Gained expertise in database integration and API consumption for scalable mobile applications.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-wrapper">
+        <div class="exp-item">
+          <div>
+            <span class="exp-title">TagAset</span> | <span class="exp-company">Asset Management</span>
+          </div>
+          <p>Smart Asset Tracking & Audit Management system. Improved performance, optimized Provider state management,
+            and integrated Firebase/REST APIs for seamless audits.</p>
+        </div>
+        <div class="exp-item">
+          <div>
+            <span class="exp-title">Fleeto</span> | <span class="exp-company">Logistics System</span>
+          </div>
+          <p>Logistics Management System with 3 apps (Shipper, Transporter, Driver) featuring real-time tracking,
+            payments, and Firebase alerts via Method Channels & Google Maps.</p>
+        </div>
+        <div class="exp-item">
+          <div>
+            <span class="exp-title">BizBuddy</span> | <span class="exp-company">Networking</span>
+          </div>
+          <p>Digital networking app with posts, chats, NFC profile sharing, Firebase notifications, and universal link
+            support.</p>
+        </div>
+        <div class="exp-item">
+          <div>
+            <span class="exp-title">TenBox</span> | <span class="exp-company">Cloud Storage</span>
+          </div>
+          <p>Secure cloud storage app for seamless upload/download of various file types with progress tracking and file
+            previews.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-wrapper">
+        <div>
+          <div class="skill-category">Languages</div>
+          <div class="skill-list">Dart, C, C++</div>
+        </div>
+        <div>
+          <div class="skill-category">Frameworks & State Management</div>
+          <div class="skill-list">Flutter, Provider, GetX</div>
+        </div>
+        <div>
+          <div class="skill-category">Backend & Databases</div>
+          <div class="skill-list">Firebase, SQL</div>
+        </div>
+        <div>
+          <div class="skill-category">Tools & Others</div>
+          <div class="skill-list">GitHub, GitLab, REST APIs, Postman, Razorpay, Google Maps APIs, NFC Integration</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Education</h2>
+      <div class="exp-item" style="margin-bottom: 15px;">
+        <div class="exp-header">
+          <span class="exp-title">Master of Computer Applications (MCA)</span>
+          <span class="exp-date">2023–2025</span>
+        </div>
+        <div class="exp-company">Bhagwan Mahavir University, Surat</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Flutter Development Certification</span>
+          <span class="exp-date">2022–2023</span>
+        </div>
+        <div class="exp-company">Simba Institute, Surat</div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function downloadPDF() {
+      // Hide the download button so it's not captured in the PDF
+      const btn = document.getElementById('downloadBtn');
+      btn.style.display = 'none';
+
+      const element = document.getElementById('resumeContent');
+
+      // We want standard A4 width, but let the height grow if needed.
+      // Easiest reliable way for 1 page in html2pdf is to scale it to fit.
+      // One reliable way to force a single page without cutoff is to
+      // scale the A4 height up to fit the whole rendered canvas, or let
+      // the jsPDF determine a custom format based on the element dimensions.
+      // 1mm = 3.7795275591px (Approx 3.8)
+      // Since A4 width is 210mm, let's keep width 210mm, and calculate height.
+
+      const pxHeight = element.offsetHeight;
+      const pxWidth = element.offsetWidth;
+      const mmHeight = (pxHeight * 210) / pxWidth; // Maintain element aspect ratio relative to A4 width
+
+      const opt = {
+        margin: 0,
+        filename: 'Rajan_Sarvaiya_Resume.pdf',
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: [210, mmHeight], orientation: 'portrait' }
+      };
+
+      // Generate PDF
+      html2pdf().set(opt).from(element).save().then(() => {
+        // Show button again
+        btn.style.display = 'flex';
+      });
+    }
+  </script>
+</body>
+
+</html>
