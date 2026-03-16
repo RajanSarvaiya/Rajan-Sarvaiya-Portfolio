@@ -320,6 +320,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ----------------------------------------
+     10.6 Shopping Web click logic
+  ---------------------------------------- */
+  const shoppingWebProject = document.getElementById('shopping-web-project');
+  if (shoppingWebProject) {
+    shoppingWebProject.addEventListener('click', () => {
+      // Both Android and iOS will open the same web application link
+      window.open("https://kiteandco.vercel.app", "_blank");
+    });
+  }
+
+  /* ----------------------------------------
      11. Fleeto Modal Logic
   ---------------------------------------- */
   const fleetoProject = document.getElementById('fleeto-project');
